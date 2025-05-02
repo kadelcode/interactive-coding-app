@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 const Hero = () => {
     return (
         <section className="flex flex-col items-center justify-center py-24 px-4">
-            <h1 className="text-5xl font-bold mb-4">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-center">
                 Master coding with <span className='text-blue-500'>Interactive Challenges</span>
             </h1>
             <p className="max-w-2xl text-lg md:text-xl text-gray-300 mb-8">
