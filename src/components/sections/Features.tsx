@@ -3,7 +3,7 @@ const Features = () => {
         <section className="">
             <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
                 <div className="mb-8 lg:mb-16 text-center">
-                    <h2 className="text-4xl font-extrabold tracking-tight text-white">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
                         Features
                     </h2>
                     <p className="font-light text-gray-500 sm:text-xl dark:text-gray-400">
