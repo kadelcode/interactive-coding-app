@@ -4,6 +4,8 @@ import { useParams } from "next/navigation"; // Import useRouter and useParams f
 import { challenges } from "@/lib/challenges";
 import { useState } from "react";
 
+import { Editor } from "@monaco-editor/react";
+
 const ChallengeDetails = () => {
     const { id } = useParams(); // Get the challenge ID from the URL using useParams
     const challenge = challenges.find((c) => c.id === id); // Find the challenge by ID
@@ -35,13 +37,21 @@ const ChallengeDetails = () => {
             <h1 className="text-2xl font-bold mb-4">{challenge.title}</h1>
             <p className="mb-6">{challenge.description}</p>
 
-            <textarea
+            {/*<textarea
               value={userCode}
               onChange={(e) => setUserCode(e.target.value)} // Update user code on change
               rows={10}
               className="w-full p-2 border border-gray-300 rounded mb-4"
               placeholder="Write your code here..."
+            />*/}
+            <Editor
+                height="400px" // Set the height of the editor
+                defaultLanguage="javascript" // Set the default language to JavaScript
+                defaultValue={userCode} // Set the initial code in the editor
+                onChange={(value) => setUserCode(value || "")} // Update user code on change
+                theme="vs-dark" // Set the theme of the editor to dark mode
             />
+
             <button
               onClick={runTests} // Run tests when button is clicked
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
