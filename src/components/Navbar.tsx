@@ -39,13 +39,16 @@ const Navbar = () => {
             </div>
 
             {isOpen && (
-                <div className="md:hidden bg-gray-800 p-4 mt-2 rounded shadow-lg">
-                    <Link href="#features" className="block py-2 hover:text-gray-400">Features</Link>
-                    <Link href="#testimonials" className="block py-2 hover:text-gray-400">Testimonials</Link>
-                    <Link href="/challenges" className="block py-2 hover:text-gray-400">Challenges</Link>
-                    <Link href="/login" className="block py-2 hover:text-gray-400">Login</Link>
-                    <Link href="/register" className="block py-2 hover:text-gray-400">Register</Link>
-                </div>
+                <>
+                    <div className='flex h-screen inset-0 bg-black/50 fixed z-40 md:hidden' onClick={toggleMenu} />
+                    <div className="md:hidden bg-gray-800 p-4 mt-2 rounded shadow-lg z-50 relative">
+                        <Link href="#features" className="block py-2 hover:text-gray-400">Features</Link>
+                        <Link href="#testimonials" className="block py-2 hover:text-gray-400">Testimonials</Link>
+                        <Link href="/challenges" className="block py-2 hover:text-gray-400">Challenges</Link>
+                        <Link href="/login" className="block py-2 hover:text-gray-400">Login</Link>
+                        <Link href="/register" className="block py-2 hover:text-gray-400">Register</Link>
+                    </div>
+                </>
             )}
         </nav>
     );
