@@ -78,7 +78,7 @@ const Testimonials = () => {
                           alt={`${testimonial.name}'s avatar`} 
                           className="rounded-full mb-4 inline-block" 
                         />
-                        <p className="text-lg italic mb-2">"{testimonial.quote}"</p>
+                        <p className="text-lg italic mb-2">&quot;{testimonial.quote}&quot;</p>
                         <h3 className="text-xl font-semibold">{testimonial.name}</h3>
                         <p className="text-gray-400">{testimonial.role}</p>
                         </div>
