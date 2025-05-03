@@ -1,12 +1,27 @@
+"use client"
+
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
     return (
-        <section className="flex flex-col items-center justify-center py-24 px-4">
+        <section className="flex flex-col items-center justify-center py-24 md:pt-40 px-4">
+            <style jsx>{`
+                @keyframes colorShift {
+                    0% { color: #3b82f6; } /* Blue */
+                    25% { color: #9333ea; } /* Purple */
+                    50% { color:rgb(171, 162, 248); } /* Light Purple */
+                    75% { color:rgb(75, 116, 248); } /* Light Blue */
+                    100% { color: #3b82f6; } /* Blue */
+                }
+                .color-animate {
+                    animation: colorShift 4s infinite; /* Infinite loop with 4s duration */
+                }
+
+            `}</style>
             <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-center">
-                Master coding with <span className='text-blue-500'>Interactive Challenges</span>
+                Master coding with <span className='color-animate'>Interactive Challenges</span>
             </h1>
-            <p className="max-w-2xl text-lg md:text-xl text-gray-300 mb-8">
+            <p className="text-lg md:text-xl text-gray-300 mb-8">
                 Sharpen your skills with live coding challenges and real-time feedback.
                 <br />
             </p>

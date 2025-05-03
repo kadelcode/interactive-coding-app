@@ -13,7 +13,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="bg-gray-900 text-white p-4 fixed w-full z-10 bg-blur-lg backdrop-blur-lg shadow-lg">
+        <nav className="bg-gray-900 text-white p-4 fixed w-full bg-blur-lg backdrop-blur-lg shadow-lg z-50">
             {/* Logo and Links */}
             <div className="container mx-auto flex justify-between items-center">
                 <Link href="/" className="text-2xl font-bold">
