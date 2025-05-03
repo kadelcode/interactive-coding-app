@@ -1,6 +1,7 @@
 "use client"
 
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const Hero = () => {
     return (
@@ -29,9 +30,12 @@ const Hero = () => {
                 <Button size="lg" className="bg-blue-600 hover:bg-blue-700 transition duration-300">
                     Get Started
                 </Button>
-                <Button size="lg" className="bg-gray-800 hover:bg-gray-700 transition duration-300">
-                    View Challenges
-                </Button>
+
+                <Link href="/challenges">
+                    <Button size="lg" className="bg-gray-800 hover:bg-gray-700 transition duration-300">
+                        View Challenges
+                    </Button>
+                </Link>
             </div>
         </section>
     )
