@@ -33,37 +33,39 @@ const ChallengeDetails = () => {
     }
 
     return (
-        <div className="max-w-4xl min-h-screen bg-gray-900 text-white mx-auto py-10 px-4">
-            <h1 className="text-2xl font-bold mb-4">{challenge.title}</h1>
-            <p className="mb-6">{challenge.description}</p>
+        <section className="container min-w-full bg-gray-900 mx-auto">
+            <div className="max-w-4xl min-h-screen bg-gray-900 text-white mx-auto py-10 px-4">
+                <h1 className="text-2xl font-bold mb-4">{challenge.title}</h1>
+                <p className="mb-6">{challenge.description}</p>
 
-            {/*<textarea
-              value={userCode}
-              onChange={(e) => setUserCode(e.target.value)} // Update user code on change
-              rows={10}
-              className="w-full p-2 border border-gray-300 rounded mb-4"
-              placeholder="Write your code here..."
-            />*/}
-            <Editor
-                height="400px" // Set the height of the editor
-                defaultLanguage="javascript" // Set the default language to JavaScript
-                defaultValue={userCode} // Set the initial code in the editor
-                onChange={(value) => setUserCode(value || "")} // Update user code on change
-                theme="vs-dark" // Set the theme of the editor to dark mode
-            />
+                {/*<textarea
+                value={userCode}
+                onChange={(e) => setUserCode(e.target.value)} // Update user code on change
+                rows={10}
+                className="w-full p-2 border border-gray-300 rounded mb-4"
+                placeholder="Write your code here..."
+                />*/}
+                <Editor
+                    height="400px" // Set the height of the editor
+                    defaultLanguage="javascript" // Set the default language to JavaScript
+                    defaultValue={userCode} // Set the initial code in the editor
+                    onChange={(value) => setUserCode(value || "")} // Update user code on change
+                    theme="vs-dark" // Set the theme of the editor to dark mode
+                />
 
-            <button
-              onClick={runTests} // Run tests when button is clicked
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
-            >
-                Run Tests
-            </button>
+                <button
+                onClick={runTests} // Run tests when button is clicked
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
+                >
+                    Run Tests
+                </button>
 
-            {testResults && (
-                <pre className="mt-4 p-4 bg-gray-800 text-white rounded">{testResults}</pre> // Display test results
-            )}
+                {testResults && (
+                    <pre className="mt-4 p-4 bg-gray-800 text-white rounded">{testResults}</pre> // Display test results
+                )}
 
-        </div>
+            </div>
+        </section>
     )
 
 }
