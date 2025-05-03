@@ -8,6 +8,8 @@ import 'swiper/css/autoplay'; // Import Swiper styles for autoplay
 
 import { Autoplay, Pagination } from 'swiper/modules'; // Import Swiper modules
 
+import Image from 'next/image'; // Import Image component from Next.js
+
 const TestimonialsData = [
     {
         name: 'Alex Johnson',
@@ -73,10 +75,13 @@ const Testimonials = () => {
                 {TestimonialsData.map((testimonial, index) => (
                     <SwiperSlide key={index} className="flex flex-col items-center justify-center text-center min-h-[300px] p-6 bg-gray-800 rounded-lg shadow-lg">
                         <div className='text-center'>
-                        <img 
+                        <Image
+                          width={64}
+                          height={64} 
                           src={`https://ui-avatars.com/api/?name=${testimonial.name}&background=4a5568&color=fff&size=64&rounded=true`} 
                           alt={`${testimonial.name}'s avatar`} 
-                          className="rounded-full mb-4 inline-block" 
+                          className="rounded-full mb-4 inline-block"
+                          unoptimized={true} // Use unoptimized for external images
                         />
                         <p className="text-lg italic mb-2">&quot;{testimonial.quote}&quot;</p>
                         <h3 className="text-xl font-semibold">{testimonial.name}</h3>
