@@ -21,7 +21,7 @@ const Hero = () => {
             <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-center">
                 Master coding with <span className='color-animate'>Interactive Challenges</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 mb-8">
+            <p className="text-lg md:text-xl text-gray-300 mb-8 text-center max-w-2xl">
                 Sharpen your skills with live coding challenges and real-time feedback.
                 <br />
             </p>
