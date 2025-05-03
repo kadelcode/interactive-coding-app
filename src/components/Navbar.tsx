@@ -3,6 +3,7 @@
 import { useState } from 'react'; // Import useState from React
 import Link from 'next/link';
 import { Menu, X, Brain } from 'lucide-react'; // Import Menu and X icons from lucide-react
+import { motion, AnimatePresence } from 'framer-motion'; // Import motion and AnimatePresence from framer-motion
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false); // State to manage the mobile menu
@@ -38,18 +39,32 @@ const Navbar = () => {
                 </button>
             </div>
 
+            <AnimatePresence>
             {isOpen && (
                 <>
-                    <div className='flex h-screen inset-0 bg-black/50 fixed z-40 md:hidden' onClick={toggleMenu} />
-                    <div className="md:hidden bg-gray-800 p-4 mt-2 rounded shadow-lg z-50 relative">
+                    <motion.div 
+                      initial={{ opacity: 0 }} // Initial state for animation
+                      animate={{ opacity: 1 }} // Animation when the menu opens
+                      exit={{ opacity: 0 }} // Animation when the menu closes
+                      transition={{ duration: 0.3 }} // Duration of the animation
+                      className='flex h-screen inset-0 bg-black/50 fixed z-40 md:hidden' 
+                      onClick={toggleMenu} />
+                    <motion.div 
+                        initial={{ opacity: 0, y: -20 }} // Initial state for animation
+                        animate={{ opacity: 1, y: 0 }} // Animation when the menu opens
+                        exit={{ opacity: 0, y: -20 }} // Animation when the menu closes
+                        transition={{ duration: 0.3 }} // Duration of the animation
+                        className="md:hidden bg-gray-800 p-4 mt-2 rounded shadow-lg z-50 relative"
+                    >
                         <Link href="#features" className="block py-2 hover:text-gray-400">Features</Link>
                         <Link href="#testimonials" className="block py-2 hover:text-gray-400">Testimonials</Link>
                         <Link href="/challenges" className="block py-2 hover:text-gray-400">Challenges</Link>
                         <Link href="/login" className="block py-2 hover:text-gray-400">Login</Link>
                         <Link href="/register" className="block py-2 hover:text-gray-400">Register</Link>
-                    </div>
+                    </motion.div>
                 </>
             )}
+            </AnimatePresence>
         </nav>
     );
 }
