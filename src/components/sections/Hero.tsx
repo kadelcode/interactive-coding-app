@@ -8,7 +8,7 @@ const Hero = () => {
             <style jsx>{`
                 @keyframes colorShift {
                     0% { color: #3b82f6; } /* Blue */
-                    25% { color: #9333ea; } /* Purple */
+                    25% { color:rgb(141, 80, 197); } /* Purple */
                     50% { color:rgb(171, 162, 248); } /* Light Purple */
                     75% { color:rgb(75, 116, 248); } /* Light Blue */
                     100% { color: #3b82f6; } /* Blue */
