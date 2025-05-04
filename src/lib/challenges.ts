@@ -6,7 +6,7 @@ export type Challenge = {
         javascript: string,
         python: string,
     }
-    testCases: string[]; // Array of test cases to validate the solution
+    testCases: { input: string; expected: string }[]; // Array of test cases to validate the solution
     difficulty: 'easy' | 'medium' | 'hard'; // Difficulty level of the challenge
     tags: string[]; // Tags associated with the challenge (e.g., 'string', 'algorithm')
     createdAt: Date; // Date when the challenge was created
