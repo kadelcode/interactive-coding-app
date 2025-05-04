@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation"; // Import useRouter and useParams from next/navigation
 import { challenges } from "@/lib/challenges";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Editor } from "@monaco-editor/react";
 
@@ -15,6 +15,18 @@ const ChallengeDetails = () => {
 
     const [language, setLanguage] = useState("javascript"); // State to manage the selected language
     const [theme, setTheme] = useState("vs-dark"); // State to manage the selected theme
+
+    const [isMobile, setIsMobile] = useState(false); // State to manage mobile view
+
+    useEffect(() => { // Effect to check if the user is on mobile view
+        // Function to check if the window width is less than or equal to 768px
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768); // Check if the window width is less than or equal to 768px
+        };
+        checkMobile(); // Call the function to check mobile view
+        window.addEventListener("resize", checkMobile); // Add event listener to check on resize
+        return () => window.removeEventListener("resize", checkMobile); // Clean up the event listener on unmount
+    }, []);
 
     if (!challenge) {
         return <div>Loading...</div>; // Show loading state if challenge is not found
@@ -41,13 +53,6 @@ const ChallengeDetails = () => {
                 <h1 className="text-2xl font-bold mb-4">{challenge.title}</h1>
                 <p className="mb-6">{challenge.description}</p>
 
-                {/*<textarea
-                value={userCode}
-                onChange={(e) => setUserCode(e.target.value)} // Update user code on change
-                rows={10}
-                className="w-full p-2 border border-gray-300 rounded mb-4"
-                placeholder="Write your code here..."
-                />*/}
                 <div className="mb-4">
                     <label htmlFor="language" className="block mb-2">Select Language:</label>
                     <select
@@ -86,23 +91,34 @@ const ChallengeDetails = () => {
                         <option value="hc-light">High Contrast Light</option>
                     </select>
                 </div>
-                <Editor
-                    height="400px" // Set the height of the editor
-                    defaultLanguage={language} // Set the default language of the editor
-                    language={language} // Set the current language of the editor
-                    defaultValue={userCode} // Set the initial code in the editor
-                    onChange={(value) => setUserCode(value || "")} // Update user code on change
-                    theme={theme} // Set the theme of the editor
-                    options={{
-                        fontSize: 16, // Set the font size of the editor
-                        lineNumbers: "on", // Show line numbers
-                        minimap: { enabled: false }, // Disable minimap
-                        automaticLayout: true, // Enable automatic layout
-                        scrollBeyondLastLine: false, // Disable scrolling beyond last line
-                        wordWrap: "on", // Enable word wrap
-                        wrappingIndent: "same", // Set wrapping indent to same
-                    }}
-                />
+
+                {isMobile ? (
+                    <textarea
+                    value={userCode}
+                    onChange={(e) => setUserCode(e.target.value)} // Update user code on change
+                    rows={10}
+                    className="w-full p-2 border border-gray-300 rounded mb-4"
+                    placeholder="Write your code here..."
+                    />
+                ) : (
+                    <Editor
+                        height="400px" // Set the height of the editor
+                        defaultLanguage={language} // Set the default language of the editor
+                        language={language} // Set the current language of the editor
+                        defaultValue={userCode} // Set the initial code in the editor
+                        onChange={(value) => setUserCode(value || "")} // Update user code on change
+                        theme={theme} // Set the theme of the editor
+                        options={{
+                            fontSize: 16, // Set the font size of the editor
+                            lineNumbers: "on", // Show line numbers
+                            minimap: { enabled: false }, // Disable minimap
+                            automaticLayout: true, // Enable automatic layout
+                            scrollBeyondLastLine: false, // Disable scrolling beyond last line
+                            wordWrap: "on", // Enable word wrap
+                            wrappingIndent: "same", // Set wrapping indent to same
+                        }}
+                    />
+                )}
 
                 <button
                 onClick={runTests} // Run tests when button is clicked
