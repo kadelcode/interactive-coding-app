@@ -24,9 +24,8 @@ export const challenges: Challenge[] = [
 
         },
         testCases: [
-            '"hello" should return "olleh"',
-            '"world" should return "dlrow"',
-            '"DevDrill" should return "lliDveD"'
+            { input: '"hello"', expected: '"olleh"' },
+            { input: '"world"', expected: '"dlrow"' },
         ],
         difficulty: 'easy',
         tags: ['string', 'algorithm'],
@@ -42,9 +41,8 @@ export const challenges: Challenge[] = [
             python: 'def fibonacci(n):\n    # Your code here\n'
         },
         testCases: [
-            'fibonacci(0) should return 0',
-            'fibonacci(1) should return 1',
-            'fibonacci(5) should return 5'
+            { input: '5', expected: '5' },
+            { input: '10', expected: '55' },
         ],
         difficulty: 'medium',
         tags: ['recursion', 'dynamic programming'],
@@ -60,9 +58,9 @@ export const challenges: Challenge[] = [
             python: 'def sort_array(arr):\n    # Your code here\n'
         },
         testCases: [
-            '[3, 1, 2] should return [1, 2, 3]',
-            '[5, 4, 3, 2, 1] should return [1, 2, 3, 4, 5]',
-            '[10, -1, 0] should return [-1, 0, 10]'
+            { input: '[3, 1, 4, 1, 5]', expected: '[1, 1, 3, 4, 5]' },
+            { input: '[10, -2, 0, 5]', expected: '[-2, 0, 5, 10]' },
+            { input: '[]', expected: '[]' },    
         ],
         difficulty: 'medium',
         tags: ['sorting', 'algorithm'],
