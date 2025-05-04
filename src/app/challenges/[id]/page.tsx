@@ -11,12 +11,28 @@ import { python } from "@codemirror/lang-python";
 // import { java } from "@codemirror/lang-java";
 import CodeRunner from "@/components/CodeRunner"; // Import CodeRunner component
 
+
+// Function to get the appropriate CodeMirror extension based on the language
+const getCodeMirrorExtension = (lang: string) => {
+    // This function returns the appropriate CodeMirror extension based on the selected language
+    switch (lang) {
+        case "javascript":
+        case "typescript":
+            return javascript({ jsx: true }); // Use JavaScript extension for JavaScript and TypeScript
+        case "python":
+            return python();
+        // Add more languages as needed
+        default:
+            return javascript({ jsx: true });
+    }
+}
+
 const ChallengeDetails = () => {
     const { id } = useParams(); // Get the challenge ID from the URL using useParams
     const challenge = challenges.find((c) => c.id === id); // Find the challenge by ID
 
     const [userCode, setUserCode] = useState(challenge?.startCode || ""); // State to manage user code
-    const [testResults, setTestResults] = useState<string[]>([]); // State to manage test results
+    const [testResults, ] = useState<string[]>([]); // State to manage test results setTestResults
 
     const [language, setLanguage] = useState("javascript"); // State to manage the selected language
     const [theme, setTheme] = useState("vs-dark"); // State to manage the selected theme
@@ -33,6 +49,12 @@ const ChallengeDetails = () => {
         return () => window.removeEventListener("resize", checkMobile); // Clean up the event listener on unmount
     }, []);
 
+    // Update userCode when the language changes
+    useEffect(() => {
+        const defaultCode = challenge?.startCode[language as keyof typeof challenge.startCode] || ""; // Get the default code for the selected language
+        setUserCode(defaultCode); // Update userCode with the default code
+    }, [language, challenge]); // Run this effect when language or challenge changes
+
 
     if (!challenge) {
         return <div>Challenge not found</div>; // Show error message if challenge is not found
@@ -44,20 +66,10 @@ const ChallengeDetails = () => {
                 <h1 className="text-2xl font-bold mb-4">{challenge.title}</h1>
                 <p className="mb-6">{challenge.description}</p>
 
-                {isMobile ? (
-                    <ReactCodeMirror // Use ReactCodeMirror editor for mobile view
-                        value={userCode} // Set the initial code in the editor
-                        height="400px" // Set the height of the editor
-                        extensions={[javascript({ jsx: true }), python()]} // Set the language extensions for CodeMirror
-                        onChange={(value) => setUserCode(value)} // Update user code on change
-                        theme="dark" // Set the theme of the editor
-                        className="mb-4" // Add margin bottom for spacing
-                    />
-                    ) : (
-                    <div className="mb-4">
+                <div>
                         <div className="flex items-center justify-between mb-4"> 
                             <div className="inline-block text-sm">
-                                <label htmlFor="language" className="block mb-2">Select Language:</label>
+                                <label htmlFor="language" className="block">Select Language:</label>
                                 <select
                                     id="language"
                                     value={language}
@@ -66,18 +78,6 @@ const ChallengeDetails = () => {
                                 >
                                     <option value="javascript">JavaScript</option>
                                     <option value="python">Python</option>
-                                    <option value="java">Java</option>
-                                    <option value="csharp">C#</option>
-                                    <option value="ruby">Ruby</option>
-                                    <option value="go">Go</option>
-                                    <option value="php">PHP</option>
-                                    <option value="typescript">TypeScript</option>
-                                    <option value="html">HTML</option>
-                                    <option value="css">CSS</option>
-                                    <option value="swift">Swift</option>
-                                    <option value="kotlin">Kotlin</option>
-                                    <option value="rust">Rust</option>
-                                    <option value="r">R</option>
                                 </select>
                             </div>
 
@@ -92,16 +92,27 @@ const ChallengeDetails = () => {
                                     <option value="vs-dark">Dark</option>
                                     <option value="light">Light</option>
                                     <option value="hc-black">High Contrast</option>
-                                    <option value="vs">Visual Studio</option>
-                                    <option value="hc-light">High Contrast Light</option>
                                 </select>
                             </div>
                         </div>
+                </div>
+
+                {isMobile ? (
+                    <ReactCodeMirror // Use ReactCodeMirror editor for mobile view
+                        value={typeof userCode === "string" ? userCode : ""} // Ensure userCode is a string
+                        height="400px" // Set the height of the editor
+                        extensions={[getCodeMirrorExtension(language)]} // Set the language extensions for CodeMirror
+                        onChange={(value) => setUserCode(value)} // Update user code on change
+                        theme={theme === "vs-dark" ? "dark" : theme === "light" ? "light" : "none"} // Map theme to allowed values
+                        className="mb-4" // Add margin bottom for spacing
+                    />
+                    ) : (
+                    <div className="mb-4"> {/* Add margin bottom for spacing */}
+                        {/* Use Monaco Editor for desktop view */}
                         <Editor
                             height="400px" // Set the height of the editor
-                            defaultLanguage={language} // Set the default language of the editor
                             language={language} // Set the current language of the editor
-                            defaultValue={userCode} // Set the initial code in the editor
+                            value={typeof userCode === "string" ? userCode : ""} // Ensure userCode is a string
                             onChange={(value) => setUserCode(value || "")} // Update user code on change
                             theme={theme} // Set the theme of the editor
                             options={{
@@ -117,7 +128,7 @@ const ChallengeDetails = () => {
                     </div>
                 )}
 
-                <CodeRunner code={userCode} language={language} /> {/* Render CodeRunner component */}  
+                <CodeRunner code={typeof userCode === "string" ? userCode : ""} language={language} /> {/* Render CodeRunner component */}  
 
                 {testResults && (
                     <pre className="mt-4 p-4 bg-gray-800 text-white rounded">{testResults}</pre> // Display test results
