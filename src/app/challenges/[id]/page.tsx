@@ -5,6 +5,10 @@ import { challenges } from "@/lib/challenges";
 import { useEffect, useState } from "react";
 
 import { Editor } from "@monaco-editor/react";
+import ReactCodeMirror from "@uiw/react-codemirror";
+import { javascript } from "@codemirror/lang-javascript";
+import { python } from "@codemirror/lang-python";
+// import { java } from "@codemirror/lang-java";
 
 const ChallengeDetails = () => {
     const { id } = useParams(); // Get the challenge ID from the URL using useParams
@@ -53,71 +57,71 @@ const ChallengeDetails = () => {
                 <h1 className="text-2xl font-bold mb-4">{challenge.title}</h1>
                 <p className="mb-6">{challenge.description}</p>
 
-                <div className="mb-4">
-                    <label htmlFor="language" className="block mb-2">Select Language:</label>
-                    <select
-                        id="language"
-                        value={language}
-                        onChange={(e) => setLanguage(e.target.value)} // Update language on change
-                        className="w-full p-2 border border-gray-300 bg-gray-900 rounded"
-                    >
-                        <option value="javascript">JavaScript</option>
-                        <option value="python">Python</option>
-                        <option value="java">Java</option>
-                        <option value="csharp">C#</option>
-                        <option value="ruby">Ruby</option>
-                        <option value="go">Go</option>
-                        <option value="php">PHP</option>
-                        <option value="typescript">TypeScript</option>
-                        <option value="html">HTML</option>
-                        <option value="css">CSS</option>
-                        <option value="swift">Swift</option>
-                        <option value="kotlin">Kotlin</option>
-                        <option value="rust">Rust</option>
-                        <option value="r">R</option>
-                    </select>
-
-                    <label htmlFor="theme" className="block mb-2 mt-4">Select Theme:</label>
-                    <select
-                        id="theme"
-                        value={theme}
-                        onChange={(e) => setTheme(e.target.value)} // Update theme on change
-                        className="w-full p-2 border border-gray-300 bg-gray-900 rounded"
-                    >
-                        <option value="vs-dark">Dark</option>
-                        <option value="light">Light</option>
-                        <option value="hc-black">High Contrast</option>
-                        <option value="vs">Visual Studio</option>
-                        <option value="hc-light">High Contrast Light</option>
-                    </select>
-                </div>
-
                 {isMobile ? (
-                    <textarea
-                    value={userCode}
-                    onChange={(e) => setUserCode(e.target.value)} // Update user code on change
-                    rows={10}
-                    className="w-full p-2 border border-gray-300 rounded mb-4"
-                    placeholder="Write your code here..."
-                    />
-                ) : (
-                    <Editor
+                    <ReactCodeMirror // Use ReactCodeMirror editor for mobile view
+                        value={userCode} // Set the initial code in the editor
                         height="400px" // Set the height of the editor
-                        defaultLanguage={language} // Set the default language of the editor
-                        language={language} // Set the current language of the editor
-                        defaultValue={userCode} // Set the initial code in the editor
-                        onChange={(value) => setUserCode(value || "")} // Update user code on change
-                        theme={theme} // Set the theme of the editor
-                        options={{
-                            fontSize: 16, // Set the font size of the editor
-                            lineNumbers: "on", // Show line numbers
-                            minimap: { enabled: false }, // Disable minimap
-                            automaticLayout: true, // Enable automatic layout
-                            scrollBeyondLastLine: false, // Disable scrolling beyond last line
-                            wordWrap: "on", // Enable word wrap
-                            wrappingIndent: "same", // Set wrapping indent to same
-                        }}
+                        extensions={[javascript({ jsx: true }), python()]} // Set the language extensions for CodeMirror
+                        onChange={(value) => setUserCode(value)} // Update user code on change
+                        theme="dark" // Set the theme of the editor
+                        className="mb-4" // Add margin bottom for spacing
                     />
+                    ) : (
+                    <div className="mb-4">
+                        <label htmlFor="language" className="block mb-2">Select Language:</label>
+                        <select
+                            id="language"
+                            value={language}
+                            onChange={(e) => setLanguage(e.target.value)} // Update language on change
+                            className="w-full p-2 border border-gray-300 bg-gray-900 rounded"
+                        >
+                            <option value="javascript">JavaScript</option>
+                            <option value="python">Python</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C#</option>
+                            <option value="ruby">Ruby</option>
+                            <option value="go">Go</option>
+                            <option value="php">PHP</option>
+                            <option value="typescript">TypeScript</option>
+                            <option value="html">HTML</option>
+                            <option value="css">CSS</option>
+                            <option value="swift">Swift</option>
+                            <option value="kotlin">Kotlin</option>
+                            <option value="rust">Rust</option>
+                            <option value="r">R</option>
+                        </select>
+
+                        <label htmlFor="theme" className="block mb-2 mt-4">Select Theme:</label>
+                        <select
+                            id="theme"
+                            value={theme}
+                            onChange={(e) => setTheme(e.target.value)} // Update theme on change
+                            className="w-full p-2 border border-gray-300 bg-gray-900 rounded"
+                        >
+                            <option value="vs-dark">Dark</option>
+                            <option value="light">Light</option>
+                            <option value="hc-black">High Contrast</option>
+                            <option value="vs">Visual Studio</option>
+                            <option value="hc-light">High Contrast Light</option>
+                        </select>
+                        <Editor
+                            height="400px" // Set the height of the editor
+                            defaultLanguage={language} // Set the default language of the editor
+                            language={language} // Set the current language of the editor
+                            defaultValue={userCode} // Set the initial code in the editor
+                            onChange={(value) => setUserCode(value || "")} // Update user code on change
+                            theme={theme} // Set the theme of the editor
+                            options={{
+                                fontSize: 16, // Set the font size of the editor
+                                lineNumbers: "on", // Show line numbers
+                                minimap: { enabled: false }, // Disable minimap
+                                automaticLayout: true, // Enable automatic layout
+                                scrollBeyondLastLine: false, // Disable scrolling beyond last line
+                                wordWrap: "on", // Enable word wrap
+                                wrappingIndent: "same", // Set wrapping indent to same
+                            }}
+                        />
+                    </div>
                 )}
 
                 <button
