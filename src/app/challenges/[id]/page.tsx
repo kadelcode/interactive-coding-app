@@ -68,42 +68,48 @@ const ChallengeDetails = () => {
                     />
                     ) : (
                     <div className="mb-4">
-                        <label htmlFor="language" className="block mb-2">Select Language:</label>
-                        <select
-                            id="language"
-                            value={language}
-                            onChange={(e) => setLanguage(e.target.value)} // Update language on change
-                            className="w-full p-2 border border-gray-300 bg-gray-900 rounded"
-                        >
-                            <option value="javascript">JavaScript</option>
-                            <option value="python">Python</option>
-                            <option value="java">Java</option>
-                            <option value="csharp">C#</option>
-                            <option value="ruby">Ruby</option>
-                            <option value="go">Go</option>
-                            <option value="php">PHP</option>
-                            <option value="typescript">TypeScript</option>
-                            <option value="html">HTML</option>
-                            <option value="css">CSS</option>
-                            <option value="swift">Swift</option>
-                            <option value="kotlin">Kotlin</option>
-                            <option value="rust">Rust</option>
-                            <option value="r">R</option>
-                        </select>
+                        <div className="flex items-center justify-between mb-4"> 
+                            <div className="inline-block text-sm">
+                                <label htmlFor="language" className="block mb-2">Select Language:</label>
+                                <select
+                                    id="language"
+                                    value={language}
+                                    onChange={(e) => setLanguage(e.target.value)} // Update language on change
+                                    className="w-full p-2 border border-gray-300 bg-gray-900 rounded"
+                                >
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="python">Python</option>
+                                    <option value="java">Java</option>
+                                    <option value="csharp">C#</option>
+                                    <option value="ruby">Ruby</option>
+                                    <option value="go">Go</option>
+                                    <option value="php">PHP</option>
+                                    <option value="typescript">TypeScript</option>
+                                    <option value="html">HTML</option>
+                                    <option value="css">CSS</option>
+                                    <option value="swift">Swift</option>
+                                    <option value="kotlin">Kotlin</option>
+                                    <option value="rust">Rust</option>
+                                    <option value="r">R</option>
+                                </select>
+                            </div>
 
-                        <label htmlFor="theme" className="block mb-2 mt-4">Select Theme:</label>
-                        <select
-                            id="theme"
-                            value={theme}
-                            onChange={(e) => setTheme(e.target.value)} // Update theme on change
-                            className="w-full p-2 border border-gray-300 bg-gray-900 rounded"
-                        >
-                            <option value="vs-dark">Dark</option>
-                            <option value="light">Light</option>
-                            <option value="hc-black">High Contrast</option>
-                            <option value="vs">Visual Studio</option>
-                            <option value="hc-light">High Contrast Light</option>
-                        </select>
+                            <div className="inline-block text-sm">
+                                <label htmlFor="theme" className="block">Select Theme:</label>
+                                <select
+                                    id="theme"
+                                    value={theme}
+                                    onChange={(e) => setTheme(e.target.value)} // Update theme on change
+                                    className="w-full p-2 border border-gray-300 bg-gray-900 rounded text-sm"
+                                >
+                                    <option value="vs-dark">Dark</option>
+                                    <option value="light">Light</option>
+                                    <option value="hc-black">High Contrast</option>
+                                    <option value="vs">Visual Studio</option>
+                                    <option value="hc-light">High Contrast Light</option>
+                                </select>
+                            </div>
+                        </div>
                         <Editor
                             height="400px" // Set the height of the editor
                             defaultLanguage={language} // Set the default language of the editor
