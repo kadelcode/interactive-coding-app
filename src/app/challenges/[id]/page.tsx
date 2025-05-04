@@ -9,6 +9,7 @@ import ReactCodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
 // import { java } from "@codemirror/lang-java";
+import CodeRunner from "@/components/CodeRunner"; // Import CodeRunner component
 
 const ChallengeDetails = () => {
     const { id } = useParams(); // Get the challenge ID from the URL using useParams
@@ -32,23 +33,9 @@ const ChallengeDetails = () => {
         return () => window.removeEventListener("resize", checkMobile); // Clean up the event listener on unmount
     }, []);
 
+
     if (!challenge) {
-        return <div>Loading...</div>; // Show loading state if challenge is not found
-    };
-
-    const runTests = () => {
-        try {
-            // Create a function dynamically
-            const func = new Function(`${userCode}; return reverseString;`); // Assuming the function name is reverseString
-            const solution = func(); // Get the function from the created function
-
-            // Test the first test case for simplicity
-            const testCase = challenge.testCases[0].replace(/"/g, "").split(" should return ");
-            const output = solution(testCase[0]); // Call the function with the test case input
-            setTestResults([`Input: ${testCase[0]}, Output: ${output}, Expected: ${testCase[1]}`]); // Set the test results
-        } catch (error) {
-            setTestResults([`Error: ${error instanceof Error ? error.message : "An unknown error occurred"}`]); // Set error message if any error occurs
-        }
+        return <div>Challenge not found</div>; // Show error message if challenge is not found
     }
 
     return (
@@ -130,12 +117,7 @@ const ChallengeDetails = () => {
                     </div>
                 )}
 
-                <button
-                onClick={runTests} // Run tests when button is clicked
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
-                >
-                    Run Tests
-                </button>
+                <CodeRunner code={userCode} language={language} /> {/* Render CodeRunner component */}  
 
                 {testResults && (
                     <pre className="mt-4 p-4 bg-gray-800 text-white rounded">{testResults}</pre> // Display test results
