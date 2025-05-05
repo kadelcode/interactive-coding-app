@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Hero = () => {
     return (
@@ -36,6 +37,15 @@ const Hero = () => {
                         View Challenges
                     </Button>
                 </Link>
+            </div>
+            <div className="relative w-full max-w-2xl h-64 md:h-96 mb-8">
+                <Image
+                    src="/images/hero_image.png"
+                    alt="Hero Image"
+                    layout="fill"
+                    objectFit="contain"
+                    className="rounded-lg shadow-lg"
+                />
             </div>
         </section>
     )
