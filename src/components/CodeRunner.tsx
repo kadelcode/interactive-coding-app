@@ -5,7 +5,9 @@ import { useState } from "react";
 declare global { // Declare global types for Pyodide
     // This is to avoid TypeScript errors when using Pyodide in the browser
     interface Window {
-        loadPyodide: () => Promise<any>;
+        loadPyodide: () => Promise<{
+            runPythonAsync: (code: string) => Promise<string>;
+        }>
     }
 }
 
