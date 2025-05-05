@@ -7,6 +7,8 @@ export type Challenge = {
         python: string,
     }
     testCases: { input: string; expected: string }[]; // Array of test cases to validate the solution
+    functionName?: string; // Name of the function to be implemented (optional)
+    functionNamePython?: string; // Name of the function to be implemented in Python (optional)
     difficulty: 'easy' | 'medium' | 'hard'; // Difficulty level of the challenge
     tags: string[]; // Tags associated with the challenge (e.g., 'string', 'algorithm')
     createdAt: Date; // Date when the challenge was created
@@ -23,6 +25,8 @@ export const challenges: Challenge[] = [
             python: 'def reverse_string(s):\n    # Your code here\n'
 
         },
+        functionName: 'reverseString',
+        functionNamePython: 'reverse_string',
         testCases: [
             { input: '"hello"', expected: '"olleh"' },
             { input: '"world"', expected: '"dlrow"' },
@@ -40,7 +44,14 @@ export const challenges: Challenge[] = [
             javascript: 'function fibonacci(n) {\n  // Your code here\n}',
             python: 'def fibonacci(n):\n    # Your code here\n'
         },
+        functionName: 'fibonacci',
+        functionNamePython: 'fibonacci',
         testCases: [
+            { input: '0', expected: '0' },
+            { input: '1', expected: '1' },
+            { input: '2', expected: '1' },
+            { input: '3', expected: '2' },
+            { input: '4', expected: '3' },
             { input: '5', expected: '5' },
             { input: '10', expected: '55' },
         ],
@@ -57,6 +68,8 @@ export const challenges: Challenge[] = [
             javascript: 'function sortArray(arr) {\n  // Your code here\n}',
             python: 'def sort_array(arr):\n    # Your code here\n'
         },
+        functionName: 'sortArray',
+        functionNamePython: 'sort_array',
         testCases: [
             { input: '[3, 1, 4, 1, 5]', expected: '[1, 1, 3, 4, 5]' },
             { input: '[10, -2, 0, 5]', expected: '[-2, 0, 5, 10]' },
